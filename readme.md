@@ -17,3 +17,5 @@
 ## Remarques éventuelles
 
 tablette
+
+favorite works but have it's bit  buggy you have to try sevrak time (i think i have resolved this issue)
