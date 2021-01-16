@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Text, ActivityIndicator, Button} from 'react-native';
+import {View, StyleSheet, Text, ActivityIndicator, Button, Image, TouchableOpacity} from 'react-native';
 
 import {connect} from 'react-redux';
 
@@ -63,9 +63,29 @@ const Element = ({route, favElements, dispatch}) => {
                             <ActivityIndicator size="large"/>
                         </View>) :
                         (<View>
-                            <Text>
-                                Je suis l'element {element.name}
+                            <Image source={{uri: "https://image.tmdb.org/t/p/w500/" + element.profile_path}}   style={{  width: 500,
+                                height: 500,
+                                borderRadius: 12,
+                                backgroundColor: Colors.mainGreen,}}/>
+                            <Text style={{ fontSize: 20, fontWeight: "bold"}}>
+                                {element.name}
                             </Text>
+
+                            <Text>
+                                {element.known_for_department}
+                            </Text>
+                            <Text> {"Birth : " + element.birthday }</Text>
+
+                            <Text> {"Death : " + element.deathday }</Text>
+
+                            <Text style={{fontWeight: "bold"}}> { "biography"}</Text>
+
+                            <Text>    {element.biography}</Text>
+
+                            <Text style={{fontWeight: "bold"}}>Credits</Text>
+
+
+
                             {displaySaveElement()}
                         </View>)
                 )}

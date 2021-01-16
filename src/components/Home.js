@@ -38,10 +38,11 @@ const Home = ({navigation, favElements}) => {
         setIsError(false);
         try {
             const apiSearchResult = await getElements(searchTerm, offset);
-            setElements([...prevRestaurants, ...apiSearchResult.restaurants]);
-            if (apiSearchResult.results_start + apiSearchResult.results_shown < apiSearchResult.results_found) {
+            //console.log(apiSearchResult);
+            setElements([...prevRestaurants, ...apiSearchResult.results]);
+            if (apiSearchResult.page < apiSearchResult.total_pages) {
                 setIsMoreResults(true);
-                setNextOffset(apiSearchResult.results_start + apiSearchResult.results_shown);
+                setNextOffset(apiSearchResult.page+1);
             } else {
                 setIsMoreResults(false);
             }
@@ -54,6 +55,8 @@ const Home = ({navigation, favElements}) => {
         setIsRefreshing(false);
 
     };
+
+
 
 
     /***
@@ -98,9 +101,9 @@ const Home = ({navigation, favElements}) => {
                 (<DisplayError message='Impossible de récupérer les elements'/>) :
                 (<FlatList
                     data={elements}
-                    keyExtractor={(item) => item.restaurant.id.toString()}
+                    keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => (
-                        <ElementListItem element={item.restaurant} onClick={navigateToElementDetails} isFav={amIaFavElement(item.restaurant.id)}/>
+                        <ElementListItem element={item} onClick={navigateToElementDetails} isFav={amIaFavElement(item.id)}/>
                     )}
                     refreshing={isRefreshing}
                     onRefresh={searchElements}
